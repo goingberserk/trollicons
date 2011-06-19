@@ -82,6 +82,7 @@ task :build_adium do
             b.key "Equivalents"
             b.array{
               r.aliases.each {|a| b.string "[#{a}]" }
+			  r.aliases.each {|a| b.string ":#{a}:" }
             }
             b.key "Name"
             b.string r.name              
@@ -117,6 +118,7 @@ task :build_pidgin do
   
   P = RIcons.new.each_emoticon do |r|
     iconStr += "#{r.cleanpath} #{r.aliases.collect{|a| "[#{a}]"}.join(' ')}\n"
+	iconStr += "#{r.cleanpath} #{r.aliases.collect{|a| ":#{a}:"}.join(' ')}\n"
   end
   
   #Write
@@ -132,6 +134,7 @@ task :build_digsby do
   D = RIcons.new.each_emoticon do |r|
     r.aliases.each do |a|
       list += "#{r.cleanpath} [#{a}]\n"
+	  list += "#{r.cleanpath} :#{a}:\n"
     end
   end
   
@@ -151,6 +154,7 @@ task :build_miranda do
   
   M = RIcons.new.each_emoticon do |r|
     string += "Smiley = \"#{r.cleanpath}\", 0, \"#{r.aliases.collect{|a| "[#{a}]"}.join(' ')}\n\""
+	string += "Smiley = \"#{r.cleanpath}\", 0, \"#{r.aliases.collect{|a| ":#{a}:"}.join(' ')}\n\""
   end
   
   M.dump_icons_to_folder('trollicons-miranda')
