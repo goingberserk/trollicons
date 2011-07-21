@@ -37,7 +37,7 @@ task :deploy do
   
   login = `git config github.user`.chomp  # your login for github
   token = `git config github.token`.chomp # your token for github
-  repos = 'sagargp/trollicons'            # your repos name (like 'taberareloo')
+  repos = 'wetsixteen/trollicons'            # your repos name (like 'taberareloo')
   gh = Net::GitHub::Upload.new(
     :login => login,
     :token => token
