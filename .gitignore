@@ -3,3 +3,7 @@ build/*
 *~
 .DS_store
 .svn
+*.pyc
+*.pem
+*.crx
+*.ignore
