@@ -27,7 +27,7 @@ namespace :install do
   
   desc "Installs in iChat.app, requires root"
   task :ichat do
-    sh "sudo cp -R ./build/-trollicons-ichat/ /Applications/iChat.app/Contents/PlugIns/Standard.smileypack/Contents/Resources/"
+    sh "sudo cp -R ./build/trollicons-ichat/ /Applications/iChat.app/Contents/PlugIns/Standard.smileypack/Contents/Resources/"
     puts "Restart iChat".red
   end
 end
@@ -111,14 +111,14 @@ namespace :build do
       }
     end
   
-    A.dump_icons_to_folder('-trollicons-ichat')    
-    mkdir_p './build/-trollicons-ichat/English.lproj'
-    Pathname.new('./build/-trollicons-ichat/English.lproj/Smileys.plist').open('w'){|io| io << markup}
+    A.dump_icons_to_folder('trollicons-ichat')    
+    mkdir_p './build/trollicons-ichat/English.lproj'
+    Pathname.new('./build/trollicons-ichat/English.lproj/Smileys.plist').open('w'){|io| io << markup}
     
     # Make a .pkg file
     puts "Making a pkg installer".bold
     cmd = "/Developer/Applications/Utilities/PackageMaker.app/Contents/MacOS/PackageMaker "
-    cmd += "--root ./build/-trollicons-ichat "
+    cmd += "--root ./build/trollicons-ichat "
     cmd += "--out ./build/trollicons-ichat.pkg "
     cmd += "--install-to /Applications/iChat.app/Contents/PlugIns/Standard.smileypack/Contents/Resources "
     cmd += "--id com.sagargp.trollicons "
@@ -299,7 +299,7 @@ task :deploy => [:clean, 'build:all', :dist] do
 
   login = `git config github.user`.chomp  # your login for github
   token = `git config github.token`.chomp # your token for github
-  repos = 'sagargp/trollicons'            # your repos name (like 'taberareloo')
+  repos = 'wetsixteen/trollicons'            # your repos name (like 'taberareloo')
   gh = Net::GitHub::Upload.new(
     :login => login,
     :token => token
@@ -393,6 +393,7 @@ class RIcons
     files.each do |f|
       unless seen.find_index(f.cleanpath)  
         seen << f.cleanpath
+	puts "#{f.cleanpath}".red
       else
         puts "Found a naming collision with #{f.cleanpath}. Please resolve it.".red
         return
